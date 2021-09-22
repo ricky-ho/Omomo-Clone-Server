@@ -1,17 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const Product = require("../models/product");
+const productController = require("../controllers/productController");
 
-router.get("/", async (req, res, next) => {
-  console.log("GET /products");
-  Product.find({}).exec((err, products) => {
-    if (err) {
-      return next(err);
-    }
-
-    return res.json(products);
-  });
-});
+router.get("/", productController.get_products);
 
 module.exports = router;
