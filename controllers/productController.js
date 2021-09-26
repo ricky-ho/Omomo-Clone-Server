@@ -3,9 +3,8 @@ const Product = require("../models/product");
 exports.get_products = async (req, res) => {
   try {
     const products = await Product.find({}).exec();
-    res.json(products);
+    res.status(200).json(products);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Server error" });
+    res.status(500).json({ error: "Server error" });
   }
 };

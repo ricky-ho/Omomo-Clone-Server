@@ -7,8 +7,8 @@ const cors = require("cors");
 const connectToDatabase = require("./config/database");
 connectToDatabase();
 
-const indexRouter = require("./routes/index");
 const productsRouter = require("./routes/products");
+const optionsRouter = require("./routes/options");
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
-app.use("/", indexRouter);
-app.use("/products", productsRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/options", optionsRouter);
 
 module.exports = app;
