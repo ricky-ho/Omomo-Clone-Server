@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const childSchema = new Schema(
+const optionSchema = new Schema(
   {
     label: String,
     price: Number,
@@ -9,10 +9,10 @@ const childSchema = new Schema(
   { _id: false }
 );
 
-const optionsSchema = new Schema({
+const optionCategorySchema = new Schema({
   label: String,
   limit: Number,
-  options: [childSchema],
+  options: [optionSchema],
 });
 
-module.exports = mongoose.model("Options", optionsSchema);
+module.exports = mongoose.model("OptionCategory", optionCategorySchema);
