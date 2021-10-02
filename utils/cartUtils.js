@@ -1,4 +1,4 @@
-const Product = require("../models/product");
+const Product = require("../models/products");
 
 exports.calculateTotalPriceOfItems = async (items) => {
   let totalPrice = 0;

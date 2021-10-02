@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 const optionSchema = new Schema(
   {
-    label: String,
-    price: Number,
+    label: { type: String, required: true },
+    price: { type: Number, required: true },
   },
   { _id: false }
 );
 
 const optionCategorySchema = new Schema({
-  label: String,
-  limit: Number,
+  label: { type: String, required: true },
+  limit: { type: Number, required: true },
   options: [optionSchema],
 });
 
