@@ -1,29 +1,57 @@
 const Product = require("../models/products");
 
-exports.calculateTotalPriceOfItems = async (items) => {
-  let totalPrice = 0;
+exports.validateAndCreateNewCart = async (items) => {
+  const newCart = [];
 
   for (let item of items) {
-    let product = await Product.findById(item.id).exec();
+    let product = await Product.findById(item.product._id).exec();
 
-    item.adjustments.forEach(
-      (option) => (totalPrice += Math.abs(option.price))
-    );
-    totalPrice += product.price;
+    const newProduct = {
+      product,
+      quantity: item.quantity,
+      modifications: item.modifications,
+      itemSubtotal: calculateItemSubtotal(
+        product,
+        item.quantity,
+        item.modifications
+      ),
+    };
+
+    newCart.push(newProduct);
   }
 
-  return totalPrice;
+  return newCart;
 };
 
-exports.getProductsInfoFromCart = async (items) => {
-  let products = [];
+exports.calculateTotalCartPrice = async (cart) => {
+  return cart.reduce((total, item) => {
+    return (total += item.itemSubtotal);
+  }, 0);
+};
 
-  for (let item of items) {
-    let product = await Product.findById(item.id).lean().exec();
+/* HELPER FUNCTIONS */
 
-    product.adjustments = item.adjustments;
-    products.push(product);
-  }
+const calculateItemSubtotal = (product, quantity, modifications) => {
+  let extraCharge = calculateModificationPrices(modifications);
+  let basePrice = product.price;
+  return (basePrice + extraCharge) * quantity;
+};
 
-  return products;
+const calculateModificationPrices = (modifications) => {
+  let optionGroups = Object.entries(modifications);
+
+  let extraCharges = optionGroups.reduce((subtotal, group) => {
+    const [, selected] = group;
+
+    if (Array.isArray(selected)) {
+      return (subtotal += selected.reduce(
+        (sum, topping) => (sum += topping.price),
+        0
+      ));
+    }
+
+    return (subtotal += selected.price);
+  }, 0);
+
+  return extraCharges;
 };
