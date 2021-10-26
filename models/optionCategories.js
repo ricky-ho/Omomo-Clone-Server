@@ -1,13 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const optionSchema = new Schema(
-  {
-    label: { type: String, required: true },
-    price: { type: Number, required: true },
-  },
-  { _id: false }
-);
+const optionSchema = new Schema({
+  label: { type: String, required: true },
+  price: { type: Number, required: true },
+});
 
 const optionCategorySchema = new Schema({
   label: { type: String, required: true },

@@ -6,7 +6,14 @@ const productSchema = new Schema({
   price: { type: Number, required: true },
   description: { type: String, required: true },
   imageURL: { type: String, required: true },
-  inStock: Boolean,
+  modalImageURL: { type: String, required: true },
+  inStock: { type: Boolean },
+  modifications: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "OptionCategory",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Product", productSchema);
