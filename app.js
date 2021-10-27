@@ -8,7 +8,6 @@ const connectToDatabase = require("./config/database");
 connectToDatabase();
 
 const productsRouter = require("./routes/products");
-const optionsRouter = require("./routes/options");
 const checkoutRouter = require("./routes/checkout");
 
 const app = express();
@@ -20,7 +19,6 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use("/api/products", productsRouter);
-app.use("/api/options", optionsRouter);
 app.use("/api/checkout", checkoutRouter);
 
 module.exports = app;
