@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const OptionCategory = require("./optionCategories");
+
 const productSchema = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
@@ -11,7 +13,7 @@ const productSchema = new Schema({
   modifications: [
     {
       type: Schema.Types.ObjectId,
-      ref: "OptionCategory",
+      ref: OptionCategory,
     },
   ],
 });
