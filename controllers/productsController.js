@@ -15,7 +15,6 @@ exports.get_all_products = async (req, res) => {
 
     res.status(200).json(productsByCategory);
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "Server error" });
   }
 };
