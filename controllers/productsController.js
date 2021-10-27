@@ -1,4 +1,5 @@
 const ProductCategory = require("../models/productCategories");
+const OptionCategory = require("../models/optionCategories");
 
 exports.get_all_products = async (req, res) => {
   try {
@@ -9,6 +10,7 @@ exports.get_all_products = async (req, res) => {
         path: "products",
         populate: {
           path: "modifications",
+          model: OptionCategory,
         },
       })
       .exec();
