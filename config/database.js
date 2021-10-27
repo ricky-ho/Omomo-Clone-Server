@@ -8,8 +8,10 @@ const connectToDatabase = async () => {
       useUnifiedTopology: true,
     });
 
+    console.log("Mongodb Connection: SUCCESS");
     return db.connection;
   } catch (error) {
+    console.log("Mongodb Connection: FAIL");
     return null;
   }
 };
